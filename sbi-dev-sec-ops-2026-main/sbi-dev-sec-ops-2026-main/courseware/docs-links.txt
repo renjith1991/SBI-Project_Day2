@@ -1,0 +1,170 @@
+steps - 16 April 2026 
+---------------------
+
+Flow: 
+Code → SAST → Build → Docker → Container Scan → Deploy → DAST
+
+Run SonarQube using Docker:
+docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+
+Open:
+http://localhost:9000
+Login: admin/admin
+Generate token
+
+Ensure the App Runs
+mvn clean spring-boot:run
+
+Open: 
+http://localhost:8090
+
+Use secure Dockerfile (already there):
+
+Build Docker image: 
+docker build -t ems:latest .
+
+Add Secrets in GitHub
+Repo → Settings → Secrets:
+
+SONAR_TOKEN
+SONAR_HOST_URL http://your-ip:9000 
+
+GitHub Workflow SAST Stage 
+
+Is there? 
+
+Build + Container Scan (Trivy): 
+
+Is there? 
+
+Run App in CI (for DAST)
+
+      - name: Run Container
+        run: |
+          docker run -d -p 8080:8080 --name ems ems:latest
+          sleep 30
+
+DAST using OWASP ZAP (Docker)
+Add ZAP Scan Step
+
+Is there? 
+
+Working Pipeline: 
+
+SAST (SonarQube)
+   ↓
+Build (Maven)
+   ↓
+Docker Build
+   ↓
+Trivy Scan
+   ↓
+Run App
+   ↓
+ZAP DAST
+
+
+
+
+
+
+
+
+
+Steps - 
+
+Download and set path of java - 
+Then - 
+StartSonar.bat 
+
+go to localhost:9000 
+
+login with admin admin 
+change password 
+
+Create a new project and analyze 
+
+
+
+Downloads - 
+
+--- no need to install - only download, extract, set path and use --- 
+
+Java 21 - 
+https://www.oracle.com/in/java/technologies/downloads/#jdk21-windows
+
+Maven - 
+https://maven.apache.org/download.cgi 
+
+Sonarqube - 
+https://www.sonarsource.com/products/sonarqube/downloads/
+
+OWASP ZAP - 
+https://www.zaproxy.org/
+
+Eclipse 
+https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/2026-03/R/eclipse-jee-2026-03-R-win32-x86_64.zip
+
+VS code - 
+https://code.visualstudio.com/download
+
+
+--- install these apps --- 
+git - 
+https://git-scm.com/install/
+
+Docker Desktop - 
+https://www.docker.com/products/docker-desktop/ 
+
+
+
+
+SBI TSE docs link - 
+https://www.google.com/url?q=https://drive.google.com/drive/folders/1sgSLkX9ElYi0bPhfdPnsZCr7S67RJeo9?usp%3Dsharing&source=gmail-imap&ust=1776677941000000&usg=AOvVaw1Sv8HP1sG6yyrn_lXY2_L0
+
+
+
+
+
+
+
+
+
+
+
+
+
+mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=vaman-java-app -Dsonar.projectName='vaman-java-app' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_8f2b34ce5b16edb339cba20d0e0657bc3464785a
+
+
+
+# Run analysis
+mvn clean verify sonar:sonar -Dsonar.token=sqp_8f2b34ce5b16edb339cba20d0e0657bc3464785a
+
+
+
+sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_2c3af2811cbcbe084e6b0459ef2d4d517c31a0cb  -Dsonar.projectKey=vaman-js-ems-app
+
+
+
+	SAST - SonarQube 
+	DAST - ZAP 
+
+
+	Download and run on CMD - 
+	java -jar ems-1.0.0.jar 
+
+	On browser open - 
+	http://localhost:8090/swagger-ui/index.html
+
+
+
+
+
+
+
+mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar  -Dsonar.projectKey=sbi-ems  -Dsonar.projectName="SBI Employee Management System" -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_422525a264bfb47b49383a5c950f68c012b6729c
+
+
+
+mvn clean verify sonar:sonar -Dsonar.token=sqp_422525a264bfb47b49383a5c950f68c012b6729c
